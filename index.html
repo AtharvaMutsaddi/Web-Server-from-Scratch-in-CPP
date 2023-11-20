@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HTTP Request Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+  </head>
+  <body>
+    <h1>Send a GET request to the server</h1>
+    <button id="startButton" onclick="startRequests()">Start GET Requests</button>
+    <div style="height:400px;width:800px">
+      <canvas id="chart"></canvas>
+    </div>
+    <div id="responseContent">
+      <!-- The GET response content will be displayed here -->
+    </div>
+    <div id="performanceMetrics">
+      <!-- Network performance metrics will be displayed here -->
+    </div>
+
+
+    <h1>Send a POST Request to the Server</h1>
+
+    <label for="postData">Enter Data:</label>
+    <br>
+    <input type="text" id="postData" />
+    <br>
+    <button id="startButtonPost" onclick="startPostRequests()">Start POST Requests</button>
+    <div id="postresponseContent">
+      <!-- POST RESPONSE CONTENT WILL DISPLAY HERE -->
+    </div>
+
+
+    <script src="index.js"></script>
+  </body>
+</html>

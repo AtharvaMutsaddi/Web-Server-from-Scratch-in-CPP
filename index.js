@@ -5,7 +5,7 @@ let buttonClickedPost = false;
 let requestCounter = 0;
 const maxRequests = 20;
 let intervalId;
-
+PORT=3000
 let averageResponseTime = 0;
 let highestResponseTime = 0;
 let lowestResponseTime = Infinity;
@@ -55,7 +55,7 @@ function sendGetRequest() {
     // Capture the start time before making the request
     const startTime = performance.now();
 
-    fetch("http://localhost:8080")
+    fetch(`http://localhost:${PORT}`)
       .then(function (response) {
         // Capture the end time when the response is received
         const endTime = performance.now();
@@ -100,7 +100,7 @@ function startRequests() {
 function sendPostRequest() {
   const postData = document.getElementById("postData").value;
   const startTime = performance.now();
-  fetch("http://localhost:8080", {
+  fetch(`http://localhost:${PORT}`, {
     method: "POST",
     body: JSON.stringify({ data: postData }),
   })

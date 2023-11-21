@@ -9,7 +9,7 @@
 
 using namespace std;
 
-#define HTML_RESP_GET "<html><head><title>Sample HTML Page</title></head><body><h1>Hello, World!</h1></body></html>"
+#define HTML_RESP_GET "<html><head><title>Sample HTML Page</title></head><body><h1>Hello, World!</h1><img src='https://placekitten.com/200/300' alt='Random Image'></body></html>"
 
 map<string, string> db;
 int id = 0;
@@ -42,7 +42,7 @@ string get_req_method(char *buffer)
 
 string get_response()
 {
-    return HTML_RESP_GET;
+    return "<html><head><title>Sample HTML Page</title></head><body><h1>Hello, World!</h1><img src='src/cat.jpg' alt='Random Image'></body></html>";
 }
 string post_response(string postdata)
 {
@@ -67,8 +67,8 @@ string del_response(string req_id)
             parsed_id += c;
         }
     }
-    cout<<"ID: "<<parsed_id<<endl;
-    string html_resp="";
+    cout << "ID: " << parsed_id << endl;
+    string html_resp = "";
     if (db.find(parsed_id) != db.end())
     {
 
@@ -186,7 +186,15 @@ int main()
         string dynamicContent = handle_req(buffer);
         if (dynamicContent != "")
         {
-            response << "HTTP/1.1 200 OK\r\n";
+            if (get_req_method(buffer) == "POST")
+            {
+                response << "HTTP/1.1 201 Created\r\n";
+            }
+            else
+            {
+
+                response << "HTTP/1.1 200 OK\r\n";
+            }
             response << "Connection: keep-alive\r\n";
             response << "Content-Type: text/plain\r\n";
             response << "Access-Control-Allow-Origin: http://127.0.0.1:5500\r\n";
@@ -196,12 +204,12 @@ int main()
         }
         else
         {
-            dynamicContent="<html><head><title>404 Not Found</title></head><body><h1>404 Not Found</h1></body></html>";
+            dynamicContent = "<html><head><title>404 Not Found</title></head><body><h1>404 Not Found</h1></body></html>";
             response << "HTTP/1.1 404 Not Found\r\n";
             response << "Connection: keep-alive\r\n";
             response << "Content-Type: text/plain\r\n";
             response << "Access-Control-Allow-Origin: http://127.0.0.1:5500\r\n";
-            response << "Content-Length: " << 0 << "\r\n";
+            response << "Content-Length: " << dynamicContent.length() << "\r\n";
             response << "\r\n";
             response << dynamicContent;
         }
